@@ -1,7 +1,6 @@
 # This file is part of PeachPy package and is licensed under the Simplified BSD license.
 #    See license.rst for the full text of the license.
 
-import six
 
 
 class Name:
@@ -96,7 +95,7 @@ class Namespace:
 
     def assign_names(self):
         # Step 1: assign names to symbols with prenames with no conflicts
-        for prename in six.iterkeys(self.prenames):
+        for prename in self.prenames.keys():
             if prename is not None:
                 if len(self.prenames[prename]) == 1 and prename not in self.names:
                     name_object = next(iter(self.prenames[prename]))
@@ -106,7 +105,7 @@ class Namespace:
                     name_object.name = prename
 
         # Step 2: assign names to symbols with conflicting prenames
-        for prename, prename_objects in six.iteritems(self.prenames):
+        for prename, prename_objects in self.prenames.items():
             if prename is not None:
                 suffix = 0
                 suffixed_name = prename + str(suffix)

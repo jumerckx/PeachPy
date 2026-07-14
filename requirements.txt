@@ -1,3 +1,4 @@
-Opcodes>=0.3.13
-six
-enum34
+# Build/codegen-only dependencies (see pyproject.toml [build-system]).
+# PeachPy has no runtime dependencies.
+Opcodes>=0.3.14
+setuptools<81

@@ -1,5 +1,8 @@
-include license.rst
-include readme.rst
-exclude sphinx
-exclude test
-
+include LICENSE.rst
+include README.rst
+include pyproject.toml
+include _peachpy_build.py
+include requirements.txt
+recursive-include codegen *.py *.json
+prune sphinx
+prune tests

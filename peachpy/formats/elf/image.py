@@ -38,7 +38,6 @@ class Image:
 
     @property
     def as_bytearray(self):
-        import six
         from peachpy.formats.elf.file import FileHeader
         from peachpy.formats.elf.section import Section, StringSection, SymbolSection
         from peachpy.util import roundup
@@ -55,7 +54,7 @@ class Image:
             if isinstance(section, StringSection):
                 pass
             elif isinstance(section, SymbolSection):
-                for symbol in six.iterkeys(section.symbol_index_map):
+                for symbol in section.symbol_index_map.keys():
                     self.strtab.add(symbol.name)
 
         # Layout sections

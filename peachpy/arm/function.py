@@ -1,7 +1,6 @@
 # This file is part of PeachPy package and is licensed under the Simplified BSD license.
 #    See license.rst for the full text of the license.
 
-from __future__ import print_function
 import time
 
 import peachpy.arm.instructions
@@ -445,7 +444,7 @@ class Function(object):
                             live_registers[instruction_live_register.id] = instruction_live_register.mask
 
                     instruction.live_registers = set([Register.from_parts(id, mask, expand=True)
-                                                      for (id, mask) in live_registers.iteritems()])
+                                                      for (id, mask) in live_registers.items()])
                 elif isinstance(instruction, LabelQuasiInstruction):
                     for entry_point in instruction.input_branches:
                         if not instructions[entry_point].is_visited:
@@ -581,7 +580,7 @@ class Function(object):
                                 else:
                                     # Check that allocation bitboards do not overlap:
                                     allocation_bitboard = 0
-                                    for bitboard in register_id_map.itervalues():
+                                    for bitboard in register_id_map.values():
                                         if (allocation_bitboard & bitboard) == 0:
                                             allocation_bitboard |= bitboard
                                         else:
@@ -633,7 +632,7 @@ class Function(object):
                                 else:
                                     # Check that allocation bitboards do not overlap:
                                     allocation_bitboard = 0
-                                    for bitboard in register_id_map.itervalues():
+                                    for bitboard in register_id_map.values():
                                         if (allocation_bitboard & bitboard) == 0:
                                             allocation_bitboard |= bitboard
                                         else:
@@ -656,7 +655,7 @@ class Function(object):
                         assert False
         report_register_constraints = False
         if report_register_constraints:
-            for (register_list, options) in constraints.iteritems():
+            for (register_list, options) in constraints.items():
                 print("REGISTER CONSTRAINTS: ", map(str, register_list))
                 for option in options:
                     print("\t", map(lambda t: "%016X" % t, option))
@@ -664,7 +663,7 @@ class Function(object):
         # Merging of different groups sharing a register will be implemented here sometime
 
         # Check that each register id appears only once
-        constrained_register_id_list = [register_id for register_id_list in constraints.iterkeys() for register_id in
+        constrained_register_id_list = [register_id for register_id_list in constraints.keys() for register_id in
                                         register_id_list]
         assert (len(constrained_register_id_list) == len(set(constrained_register_id_list)))
         constrained_register_id_set = set(constrained_register_id_list)
@@ -679,7 +678,7 @@ class Function(object):
         for constrained_register_id in constrained_register_id_list:
             while (constrained_register_id, Register.VFPType) in self.unallocated_registers:
                 self.unallocated_registers.remove((constrained_register_id, Register.VFPType))
-        for register_id_list in constraints.iterkeys():
+        for register_id_list in constraints.keys():
             self.unallocated_registers.append((register_id_list, Register.VFPType))
 
         # 		print "UNALLOCATED REGISTERS:"
@@ -700,7 +699,7 @@ class Function(object):
         # Remove individual registers from the lists of allocation options and add the register group instead
         for constrained_register_id in constrained_register_id_list:
             del self.allocation_options[constrained_register_id]
-        for register_id_list, constrained_options in constraints.iteritems():
+        for register_id_list, constrained_options in constraints.items():
             self.allocation_options[register_id_list] = list(options)
 
     def allocate_registers(self):
@@ -729,7 +728,7 @@ class Function(object):
             for virtual_register_id, physical_register_bitboard in zip(virtual_register_id_list,
                                                                        physical_register_bitboard_list):
                 for conflicting_register_id in self.conflicting_registers[virtual_register_id]:
-                    for allocation_key, allocation_option in self.allocation_options.iteritems():
+                    for allocation_key, allocation_option in self.allocation_options.items():
                         if isinstance(allocation_key, tuple):
                             if conflicting_register_id in allocation_key:
                                 conflicting_register_index = allocation_key.index(conflicting_register_id)

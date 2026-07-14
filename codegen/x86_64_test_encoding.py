@@ -1,7 +1,6 @@
 # This file is part of PeachPy package and is licensed under the Simplified BSD license.
 #    See license.rst for the full text of the license.
 
-from __future__ import print_function
 from opcodes.x86_64 import *
 from codegen.code import CodeWriter, CodeBlock
 import os

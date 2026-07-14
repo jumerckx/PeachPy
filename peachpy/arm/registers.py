@@ -2,7 +2,6 @@
 #    See license.rst for the full text of the license.
 
 
-import six
 
 
 class Register(object):

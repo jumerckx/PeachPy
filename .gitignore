@@ -18,8 +18,10 @@ codegen/x86_64_nacl.py
 doc/
 
 # Generated distributions
+build/
 dist/
 .eggs/
+*.egg-info/
 PeachPy.egg-info/
 MANIFEST
 

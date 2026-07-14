@@ -1,0 +1,46 @@
+[build-system]
+# setuptools is pinned <81 because Opcodes (the codegen input) still imports
+# pkg_resources, which was removed from setuptools 81.
+requires = ["setuptools>=64,<81", "Opcodes>=0.3.14"]
+build-backend = "_peachpy_build"
+backend-path = ["."]
+
+[project]
+name = "PeachPy"
+version = "0.2.0"
+description = "Portable Efficient Assembly Codegen in Higher-level Python"
+readme = "README.rst"
+requires-python = ">=3.8"
+license = { text = "BSD-2-Clause" }
+authors = [{ name = "Marat Dukhan", email = "maratek@gmail.com" }]
+keywords = ["assembly", "codegen", "x86-64"]
+dependencies = []
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: POSIX :: BSD :: FreeBSD",
+    "Operating System :: MacOS :: MacOS X",
+    "Programming Language :: Assembly",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Natural Language :: English",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Assemblers",
+    "Topic :: Software Development :: Code Generators",
+    "Topic :: Software Development :: Compilers",
+    "Topic :: Software Development :: Libraries",
+]
+
+[project.urls]
+Homepage = "https://github.com/Maratyszcza/PeachPy/"
+
+[tool.setuptools.packages.find]
+include = ["peachpy*"]

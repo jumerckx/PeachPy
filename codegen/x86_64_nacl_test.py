@@ -1,13 +1,11 @@
 # This file is part of PeachPy package and is licensed under the Simplified BSD license.
 #    See license.rst for the full text of the license.
 
-from __future__ import print_function
 from opcodes.x86_64 import *
 from codegen.code import CodeWriter, CodeBlock
 import operator
 import json
 import os
-import six
 
 
 instruction_set = read_instruction_set()
@@ -71,7 +69,7 @@ from peachpy.x86_64 import *\n\
 \n\
 instruction_list = []\n\
 ", file=out)
-    for group, instruction_names in six.iteritems(instruction_groups):
+    for group, instruction_names in instruction_groups.items():
         with CodeWriter() as code:
             code.line("# " + group)
             for name in instruction_names:
