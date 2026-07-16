@@ -83,6 +83,9 @@ class Register(object):
             if mask & 0x10 != 0:
                 mask &= ~0x10
                 registers.add(MMXRegister(physical_id=internal_id))
+            if mask & 0x40 != 0:
+                mask &= ~0x40
+                registers.add(KRegister(physical_id=internal_id))
             if mask & 0x8 != 0:
                 mask &= ~0xF
                 registers.add(GeneralPurposeRegister64(physical_id=internal_id))

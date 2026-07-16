@@ -704,10 +704,12 @@ class Function:
         """Checks that the number of live registers does not exceed the number of physical registers for each insruction
         """
         from peachpy.x86_64.registers import GeneralPurposeRegister, MMXRegister, XMMRegister, KRegister
+        # AVX-512 exposes 32 vector registers (zmm0-zmm31); pre-AVX-512 targets have 16.
+        vector_register_count = 32 if self.target is not None and self.target.has_avx512f else 16
         max_live_registers = {
             GeneralPurposeRegister._kind: 15,
             MMXRegister._kind: 8,
-            XMMRegister._kind: 16,
+            XMMRegister._kind: vector_register_count,
             KRegister._kind: 8
         }
         for instruction in self._instructions:

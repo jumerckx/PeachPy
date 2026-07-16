@@ -166,6 +166,12 @@ def modrm_sib_disp(reg, rm, force_sib=False, min_disp=0, disp8xN=None):
 
     if disp8xN is None:
         disp8xN = 1
+    # An EVEX broadcast memory operand scales the compressed disp8 by the broadcast element
+    # size, not the full vector size the generated encoder passes; honor the element size the
+    # operand recorded on its address (see MemoryOperand.__init__ in operand.py).
+    broadcast_scale = getattr(rm, "disp8_scale", None)
+    if broadcast_scale is not None:
+        disp8xN = broadcast_scale
     assert disp8xN in [1, 2, 4, 8, 16, 32, 64]
 
     #                    ModR/M byte

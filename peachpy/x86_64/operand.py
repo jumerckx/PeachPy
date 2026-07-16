@@ -285,6 +285,13 @@ class MemoryOperand:
             # Convert register to memory address expression
             self.address = MemoryAddress(address)
 
+        # For an EVEX broadcast operand ({1toN}), the compressed disp8 is scaled by the
+        # broadcast *element* size, not the full vector size. The generated encoders pass the
+        # vector size as disp8xN; record the element size on the address so `modrm_sib_disp`
+        # can override it (see peachpy/x86_64/encoding.py).
+        if self.broadcast is not None and isinstance(self.address, MemoryAddress):
+            self.address.disp8_scale = self.size
+
     def __str__(self):
         if self.size is None:
             return "[" + str(self.address) + "]"
